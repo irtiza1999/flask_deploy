@@ -7,13 +7,16 @@
 from flask import Flask, render_template, request, redirect, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import text
+import os
 
 app = Flask(__name__)
 
 # Database Configuration
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///ecommerce.db"
+base_dir = os.path.abspath(os.path.dirname(__file__))
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(base_dir, 'database.db')
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.secret_key = "ecommerce_secret"
+
 
 db = SQLAlchemy(app)
 
